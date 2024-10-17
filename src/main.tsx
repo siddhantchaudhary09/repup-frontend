@@ -7,7 +7,7 @@ import Home from "./pages/Home.tsx";
 import Profile from "./pages/Profile.tsx";
 import SignIn from "./pages/SignIn.tsx";
 
-import SignUp from "./pages/Signup.tsx";
+import Register from "./pages/Register.tsx";
 import Workout from "./pages/Workout.tsx";
 
 const router = createBrowserRouter([
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/signup",
-        element: <SignUp />,
+        element: <Register />,
       },
     ],
   },

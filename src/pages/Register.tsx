@@ -35,7 +35,7 @@ const initialFormData: FormData = {
   weight: "",
 };
 
-const SignUp = () => {
+const Register = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isLoading, setIsLoading] = useState(false);
@@ -271,4 +271,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Register;
