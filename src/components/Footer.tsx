@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-zinc-900 shadow-lg">
       <div className="flex justify-around p-4">
-        <Link to="/home" className="flex flex-col items-center text-white">
+        <Link to="/" className="flex flex-col items-center text-white">
           <i className="fas fa-home text-2xl"></i>
           <span className="text-xs">
             <House />
