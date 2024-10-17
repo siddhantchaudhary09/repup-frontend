@@ -7,8 +7,10 @@ import Home from "./pages/Home.tsx";
 import Profile from "./pages/Profile.tsx";
 import SignIn from "./pages/SignIn.tsx";
 
+import { Provider } from "react-redux";
 import Register from "./pages/Register.tsx";
 import Workout from "./pages/Workout.tsx";
+import store from "./store/store.ts";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +43,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>
 );

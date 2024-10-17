@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { loginapi } from "../Api/Authapi.ts";
 
@@ -16,6 +17,7 @@ const loginform: logindata = {
   password: "",
 };
 const SignIn = () => {
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [errormsg, seterror] = useState("");
   const navigate = useNavigate();
@@ -30,7 +32,7 @@ const SignIn = () => {
     console.log(event);
     event.preventDefault();
     setIsLoading(true);
-    loginapi(formData, setIsLoading, navigate, seterror);
+    loginapi(formData, setIsLoading, navigate, seterror, dispatch);
   };
 
   return (

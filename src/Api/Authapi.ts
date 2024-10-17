@@ -1,6 +1,7 @@
 import axios from "axios";
 import { FormData } from "../pages/Register.tsx";
 import { logindata } from "../pages/SignIn.tsx";
+import { addUser } from "../store/authslice.ts";
 
 export const SignupAPi = async (
   formdata: FormData,
@@ -32,7 +33,8 @@ export const loginapi = async (
   logindetails: logindata,
   setIsloading: Function,
   navigate: Function,
-  seterror: Function
+  seterror: Function,
+  dispatch: Function
 ) => {
   console.log("Login details:", logindetails);
   const { email, password } = logindetails;
@@ -49,6 +51,8 @@ export const loginapi = async (
     );
     if (response) {
       setIsloading(false);
+
+      dispatch(addUser(response.data.user));
       navigate("/");
     }
   } catch (error: any) {

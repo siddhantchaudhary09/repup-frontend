@@ -1,13 +1,11 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button.tsx";
 
 const Header = () => {
-  const [isSignedIn, setIsSignedIn] = useState(true); // State to track sign-in status
+  const loginstatus = useSelector((state: any) => state.auth.status);
 
-  const handleLogOut = () => {
-    setIsSignedIn(false);
-  };
+  const handleLogOut = () => {};
 
   return (
     <div className="fixed top-0 text-white left-0 right-0 bg-zinc-900 shadow-lg">
@@ -16,7 +14,7 @@ const Header = () => {
           RepUp
         </Link>
         <div className="space-x-3">
-          {isSignedIn && (
+          {loginstatus && (
             <Button
               variant="ghost"
               className="bg-zinc-700"
