@@ -81,8 +81,8 @@ const Homepage = () => {
         </section>
       </main>
 
-      <footer className="p-4 text-center text-sm text-zinc-500">
-        © 2024 GainTrack. All rights reserved.
+      <footer className="p-4  mb-12 text-center text-sm text-zinc-500">
+        © 2024 RepUp. All rights reserved.
       </footer>
     </div>
   );

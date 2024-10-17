@@ -1,21 +1,36 @@
-"use client"; // This indicates it's a client-side component in a React app.
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom"; // Assuming you're using react-router for navigation
+import { Link, useNavigate } from "react-router-dom";
+import { loginapi } from "../Api/Authapi.ts";
 
+export type logindata = {
+  email: string;
+  password: string;
+};
+
+const loginform: logindata = {
+  email: "",
+  password: "",
+};
 const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [errormsg, seterror] = useState("");
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState<logindata>(loginform);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    console.log(event);
     event.preventDefault();
     setIsLoading(true);
-    // Simulate sign-in logic
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsLoading(false);
+    loginapi(formData, setIsLoading, navigate, seterror);
   };
 
   return (
@@ -43,8 +58,11 @@ const SignIn = () => {
             <Input
               id="email"
               type="email"
+              name="email"
               placeholder="you@example.com"
               required
+              value={formData.email}
+              onChange={handleInputChange}
               className="bg-zinc-800 text-white border-zinc-700"
             />
           </div>
@@ -55,10 +73,14 @@ const SignIn = () => {
             <Input
               id="password"
               type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
               required
               className="bg-zinc-800 text-white border-zinc-700"
             />
           </div>
+          {errormsg && <p className="text-red-500">{errormsg}</p>}
           <Button
             type="submit"
             className="w-full bg-white text-zinc-900 hover:bg-zinc-200"
@@ -88,7 +110,7 @@ const SignIn = () => {
       </main>
 
       <footer className="mt-8 text-center text-sm text-zinc-500">
-        © 2024 GainTrack. All rights reserved.
+        © 2024 RepUp. All rights reserved.
       </footer>
     </div>
   );

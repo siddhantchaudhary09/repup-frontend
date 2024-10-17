@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
   SelectContent,
@@ -11,13 +10,14 @@ import {
 } from "@/components/ui/select";
 import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom"; // Using react-router for navigation
+import { Link, useNavigate } from "react-router-dom"; // Using react-router for navigation
+import { SignupAPi } from "../Api/Authapi.ts";
 
-type FormData = {
+export type FormData = {
   email: string;
   password: string;
   username: string;
-  age: string;
+  age: number;
   gender: string;
   goal: string;
   height: string;
@@ -28,7 +28,7 @@ const initialFormData: FormData = {
   email: "",
   password: "",
   username: "",
-  age: "",
+  age: 0,
   gender: "",
   goal: "",
   height: "",
@@ -36,6 +36,7 @@ const initialFormData: FormData = {
 };
 
 const Register = () => {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isLoading, setIsLoading] = useState(false);
@@ -60,10 +61,7 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Simulate sign-up logic
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsLoading(false);
-    // Reset form or redirect user after successful signup
+    SignupAPi(formData, navigate, setIsLoading);
   };
 
   return (
@@ -140,26 +138,21 @@ const Register = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label>Gender</Label>
-                <RadioGroup
+                <Label htmlFor="gender">Gender</Label>
+
+                <Select
                   name="gender"
                   value={formData.gender}
                   onValueChange={(value) => handleSelectChange("gender", value)}
-                  className="flex flex-col space-y-2"
                 >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="male" id="male" />
-                    <Label htmlFor="male">Male</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="female" id="female" />
-                    <Label htmlFor="female">Female</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="other" id="other" />
-                    <Label htmlFor="other">Other</Label>
-                  </div>
-                </RadioGroup>
+                  <SelectTrigger className="bg-zinc-800 text-white border-zinc-700">
+                    <SelectValue placeholder="Select your gender" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="M">Male</SelectItem>
+                    <SelectItem value="F">Female</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </>
           )}
@@ -177,11 +170,9 @@ const Register = () => {
                     <SelectValue placeholder="Select your goal" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="lose_weight">Lose Weight</SelectItem>
-                    <SelectItem value="gain_muscle">Gain Muscle</SelectItem>
-                    <SelectItem value="improve_fitness">
-                      Improve Overall Fitness
-                    </SelectItem>
+                    <SelectItem value="fatloss">FatLoss</SelectItem>
+                    <SelectItem value="body recomp"> BodyRecomp</SelectItem>
+                    <SelectItem value="muscle gain">MuscleGain</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -259,14 +250,10 @@ const Register = () => {
             asChild
             className="text-white hover:text-zinc-300"
           >
-            <Link to="/signin">Sign In</Link>
+            <Link to="/login">Sign In</Link>
           </Button>
         </div>
       </main>
-
-      <footer className="mt-8 text-center text-sm text-zinc-500">
-        © 2024 GainTrack. All rights reserved.
-      </footer>
     </div>
   );
 };
