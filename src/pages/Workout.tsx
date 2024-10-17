@@ -1,5 +1,12 @@
+import Workoutheader from "../components/Workoutheader.tsx";
+
 const Workout = () => {
-  return <div>Workout</div>;
+  return (
+    <>
+      <Workoutheader />
+      <div>Workout</div>
+    </>
+  );
 };
 
 export default Workout;

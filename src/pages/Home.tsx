@@ -1,5 +1,14 @@
+import Homeheader from "../components/Homeheader.tsx";
+import Homepage from "../components/Homepage.tsx";
+
 const Home = () => {
-  return <div className="h-screen">Home</div>;
+  return (
+    <>
+      <Homeheader />
+
+      <Homepage />
+    </>
+  );
 };
 
 export default Home;
