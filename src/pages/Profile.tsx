@@ -37,7 +37,7 @@ export default function Profile() {
   ) as UserData; // Fetch user data from the Redux store
 
   const [userData, setUserData] = useState<UserData>(userDataFromStore);
-  const [isEditing, setIsEditing] = useState(false);
+  //const [isEditing, setIsEditing] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
