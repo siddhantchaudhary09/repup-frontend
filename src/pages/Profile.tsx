@@ -52,7 +52,6 @@ export default function Profile() {
     e.preventDefault();
     // Here you would typically send the updated data to your backend
     console.log("Updated user data:", userData);
-    setIsEditing(false);
   };
 
   return (
