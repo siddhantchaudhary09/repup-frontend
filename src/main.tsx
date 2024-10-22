@@ -9,7 +9,9 @@ import SignIn from "./pages/SignIn.tsx";
 
 import { Provider } from "react-redux";
 import Protected from "./components/Protected.tsx";
+import ExcerciseStats from "./pages/ExcerciseStats.tsx";
 import Register from "./pages/Register.tsx";
+import Routine from "./pages/Routine.tsx";
 import Workout from "./pages/Workout.tsx";
 import store from "./store/store.ts";
 
@@ -23,7 +25,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/workout",
+        path: "workout",
         element: (
           <Protected authentication={true}>
             <Workout />
@@ -51,6 +53,22 @@ const router = createBrowserRouter([
         element: (
           <Protected authentication={false}>
             <Register />
+          </Protected>
+        ),
+      },
+      {
+        path: "/excercise/:id",
+        element: (
+          <Protected authentication={true}>
+            <ExcerciseStats />
+          </Protected>
+        ),
+      },
+      {
+        path: "/routine/:id",
+        element: (
+          <Protected authentication={true}>
+            <Routine />
           </Protected>
         ),
       },

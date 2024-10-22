@@ -1,7 +1,7 @@
 import axios from "axios";
 import { FormData } from "../pages/Register.tsx";
 import { logindata } from "../pages/SignIn.tsx";
-import { addUser } from "../store/authslice.ts";
+import { addUser, removeUser } from "../store/authslice.ts";
 
 export const SignupAPi = async (
   formdata: FormData,
@@ -61,5 +61,28 @@ export const loginapi = async (
     seterror(errorMessage);
     setIsloading(false);
     console.error("Error:", error);
+  }
+};
+
+export const currentuserapi = async (dispatch: Function) => {
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_DOMAIN}/users/getcurrentuser`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+
+    const user = response.data?.user;
+
+    if (user) {
+      dispatch(addUser(user));
+    } else {
+      dispatch(removeUser());
+    }
+  } catch (error) {
+    console.error("Error fetching current user:", error);
+    dispatch(removeUser());
   }
 };

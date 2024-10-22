@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface ProtectedProps {
   children: ReactNode;
@@ -13,19 +13,22 @@ export default function Protected({
 }: ProtectedProps) {
   const authStatus = useSelector((state: any) => state.auth.status);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (authStatus === undefined) {
-      return;
+    // Check if authStatus is defined before navigating
+    if (authStatus !== undefined) {
+      if (authStatus && !authentication) {
+        // If authenticated but trying to access a restricted route
+        navigate(location.state?.from || "/default-path");
+      } else if (!authStatus && authentication) {
+        // If not authenticated and trying to access a protected route
+        navigate("/login", { state: { from: location.pathname } });
+      }
     }
+  }, [authStatus, navigate, authentication, location]);
 
-    if (authStatus && !authentication) {
-      navigate("/");
-    } else if (!authStatus && authentication) {
-      navigate("/login");
-    }
-  }, [authStatus, navigate, authentication]);
-
+  // Show a loading state if authStatus is undefined
   if (authStatus === undefined) {
     return <h1>Loading...</h1>;
   }
