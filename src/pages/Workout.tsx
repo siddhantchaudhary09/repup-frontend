@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 import { useNavigate } from "react-router";
 import AddExercise from "../components/AddExcercise.tsx";
+import AddRoutine from "../components/AddRoutine.tsx";
 
 export default function Workout() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ export default function Workout() {
       <h1 className="text-2xl font-bold mb-6">Your Workout</h1>
 
       <div className="grid grid-cols-2 gap-4 mb-8">
+        <AddRoutine />
         <AddExercise />
       </div>
 

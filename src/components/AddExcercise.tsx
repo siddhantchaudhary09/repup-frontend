@@ -31,7 +31,7 @@ export default function AddExercise() {
   const handleAddExercise = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
-    setError(""); // Reset error state
+    setError("");
     try {
       const { data } = await axios.post(
         `${import.meta.env.VITE_DOMAIN}/users/create`,
