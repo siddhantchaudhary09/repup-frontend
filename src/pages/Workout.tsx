@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 import { useNavigate } from "react-router";
 import AddExercise from "../components/AddExcercise.tsx";
-import AddRoutine from "../components/AddRoutine.tsx";
 
 export default function Workout() {
   const navigate = useNavigate();
@@ -12,16 +11,11 @@ export default function Workout() {
   );
   const routines = useSelector((state: any) => state?.auth?.user?.routine);
 
-  const addRoutine = (routineName: string) => {
-    setRoutines((prev) => [...prev, routineName]);
-  };
-
   return (
     <div className="min-h-screen bg-zinc-900 text-white p-4 mb-12">
       <h1 className="text-2xl font-bold mb-6">Your Workout</h1>
 
       <div className="grid grid-cols-2 gap-4 mb-8">
-        <AddRoutine addRoutine={addRoutine} />
         <AddExercise />
       </div>
 

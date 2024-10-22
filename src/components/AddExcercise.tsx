@@ -24,11 +24,11 @@ export default function AddExercise() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleInputChange = ({ target: { name, value } }) => {
+  const handleInputChange = ({ target: { name, value } }: any) => {
     setExerciseData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleAddExercise = async (e) => {
+  const handleAddExercise = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
     setError(""); // Reset error state
