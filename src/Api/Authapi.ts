@@ -60,7 +60,7 @@ export const loginapi = async (
       error.response?.data?.message || "Password is Incorrect";
     seterror(errorMessage);
     setIsloading(false);
-    console.error("Error:", error);
+    console.error("Error: auth", error);
   }
 };
 
