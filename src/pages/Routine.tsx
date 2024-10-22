@@ -24,12 +24,16 @@ interface Exercise {
 }
 
 function Routine() {
+  const dispatch = useDispatch();
+  const user = useSelector((state: any) => state?.auth?.user);
+
   const params = useParams<{ id: string }>();
   const routineId = params?.id;
+
   const [routineInfo, setRoutineInfo] = useState<any>(null);
   useEffect(() => {
     routineInfoapi(routineId, setRoutineInfo);
-  }, [routineId]);
+  }, [routineId, dispatch, user]);
 
   console.log(routineInfo);
 
@@ -38,11 +42,9 @@ function Routine() {
   const userExercises = useSelector(
     (state: any) => state?.auth?.user?.Userexcercise
   );
-  const dispatch = useDispatch();
 
   const handleAddExercise = async (exercise: Exercise) => {
     try {
-      // Make a POST request to add the exercise to the user's routine
       await axios.post(
         `${import.meta.env.VITE_DOMAIN}/excercise/createexcercise`,
         {
