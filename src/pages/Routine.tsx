@@ -26,7 +26,6 @@ interface Exercise {
 }
 
 interface SetData {
-  _id: string;
   weight: string;
   reps: string;
 }
@@ -214,7 +213,7 @@ const Routine = () => {
                       Category: {exercise?.category}
                     </p>
                     <p className="text-gray-300">Muscle: {exercise?.muscle}</p>
-                    {exercise?.Set?.map((set: SetData) => (
+                    {exercise?.Set?.map((set: any) => (
                       <div
                         className="flex items-center gap-2 mt-2"
                         key={set._id}
