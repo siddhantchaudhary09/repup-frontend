@@ -18,7 +18,6 @@ export default function AddRoutine() {
   const dispatch = useDispatch();
   const [routineData, setRoutineData] = useState({ title: "" });
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const handleInputChange = ({ target: { name, value } }: any) => {
     setRoutineData((prev) => ({ ...prev, [name]: value }));
@@ -27,7 +26,7 @@ export default function AddRoutine() {
   const handleAddRoutine = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
-    setError("");
+
     try {
       const { data } = await axios.post(
         `${import.meta.env.VITE_DOMAIN}/routine/createroutine`,
@@ -37,12 +36,9 @@ export default function AddRoutine() {
 
       if (data?.status == 200) {
         setRoutineData({ title: "" });
-      } else {
-        setError("Failed to add routine. Please try again.");
       }
     } catch (error) {
       console.error("Error adding routine:", error);
-      setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
       currentuserapi(dispatch);
@@ -63,7 +59,7 @@ export default function AddRoutine() {
             Add New Routine
           </DialogTitle>
         </DialogHeader>
-        {error && <p className="text-red-500 text-center">{error}</p>}
+
         <form onSubmit={handleAddRoutine} className="space-y-6">
           <div>
             <Label htmlFor="routineTitle" className="block text-sm font-medium">
