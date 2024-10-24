@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { currentuserapi } from "../Api/Authapi.ts";
 import { routineInfoapi } from "../Api/Routineexcercise.ts";
+import SkeletonLoader from "../components/Loader.tsx";
 
 interface Exercise {
   _id: string;
@@ -64,46 +65,49 @@ function Routine() {
   };
 
   return (
-    <div className="container mx-auto p-4 bg-zinc-900 h-full mb-12 text-white">
+    <div className="container mx-auto p-4 bg-zinc-900 min-h-screen mb-12 text-white">
       <h1 className="text-2xl font-bold mb-4">Routine {routineInfo?.title}</h1>
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogTrigger asChild>
-          <Button className="mb-4 bg-zinc-700 hover:bg-zinc-600">
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Add Exercise
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] bg-zinc-800 text-white">
-          <DialogHeader>
-            <DialogTitle>Add Exercise to Routine</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <ScrollArea className="h-[300px] w-full rounded-md border bg-zinc-700 p-4">
-              {userExercises?.length > 0 ? (
-                userExercises?.map((exercise: any) => (
-                  <div
-                    key={exercise._id}
-                    className="flex items-center justify-between py-2"
-                  >
-                    <span>{exercise.name}</span>
-                    <Button
-                      onClick={() => handleAddExercise(exercise)}
-                      className="bg-zinc-600 hover:bg-zinc-500"
+      {routineInfo ? (
+        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+          <DialogTrigger asChild>
+            <Button className="mb-4 bg-zinc-700 hover:bg-zinc-600">
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Add Exercise
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px] bg-zinc-800 text-white">
+            <DialogHeader>
+              <DialogTitle>Add Exercise to Routine</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <ScrollArea className="h-[300px] w-full rounded-md border bg-zinc-700 p-4">
+                {userExercises?.length > 0 ? (
+                  userExercises?.map((exercise: any) => (
+                    <div
+                      key={exercise._id}
+                      className="flex items-center justify-between py-2"
                     >
-                      Add
-                    </Button>
-                  </div>
-                ))
-              ) : (
-                <p className="text-center text-gray-400">
-                  No exercises available
-                </p>
-              )}
-            </ScrollArea>
-          </div>
-        </DialogContent>
-      </Dialog>
-
+                      <span>{exercise.name}</span>
+                      <Button
+                        onClick={() => handleAddExercise(exercise)}
+                        className="bg-zinc-600 hover:bg-zinc-500"
+                      >
+                        Add
+                      </Button>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-center text-gray-400">
+                    No exercises available
+                  </p>
+                )}
+              </ScrollArea>
+            </div>
+          </DialogContent>
+        </Dialog>
+      ) : (
+        <SkeletonLoader />
+      )}
       <div className="p-4 bg-gray-900 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-white mb-4">Exercises</h2>
         {routineInfo?.excercises?.length > 0 ? (

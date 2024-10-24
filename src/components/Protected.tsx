@@ -20,7 +20,7 @@ export default function Protected({
     if (authStatus !== undefined) {
       if (authStatus && !authentication) {
         // If authenticated but trying to access a restricted route
-        navigate(location.state?.from || "/default-path");
+        navigate(location.state?.from || "/");
       } else if (!authStatus && authentication) {
         // If not authenticated and trying to access a protected route
         navigate("/login", { state: { from: location.pathname } });
