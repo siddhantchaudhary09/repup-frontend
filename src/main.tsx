@@ -66,11 +66,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/routine/:id",
-        element: (
-          <Protected authentication={true}>
-            <Routine />
-          </Protected>
-        ),
+        element: <Routine />,
       },
     ],
   },
