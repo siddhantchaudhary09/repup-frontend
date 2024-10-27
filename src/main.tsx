@@ -9,9 +9,11 @@ import SignIn from "./pages/SignIn.tsx";
 
 import { Provider } from "react-redux";
 import Protected from "./components/Protected.tsx";
+import Createroutine from "./pages/Createroutine.tsx";
 import ExcerciseStats from "./pages/ExcerciseStats.tsx";
 import Register from "./pages/Register.tsx";
 import Routine from "./pages/Routine.tsx";
+import SearchPage from "./pages/SearchPage.tsx";
 import Workout from "./pages/Workout.tsx";
 import store from "./store/store.ts";
 
@@ -67,6 +69,22 @@ const router = createBrowserRouter([
       {
         path: "/routine/:id",
         element: <Routine />,
+      },
+      {
+        path: "/search",
+        element: (
+          <Protected>
+            <SearchPage />
+          </Protected>
+        ),
+      },
+      {
+        path: "/create-routine/:id",
+        element: (
+          <Protected>
+            <Createroutine />
+          </Protected>
+        ),
       },
     ],
   },

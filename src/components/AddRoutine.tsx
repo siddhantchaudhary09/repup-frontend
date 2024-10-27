@@ -12,10 +12,12 @@ import axios from "axios";
 import { PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { currentuserapi } from "../Api/Authapi.ts";
 
 export default function AddRoutine() {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Initialize useNavigate
   const [routineData, setRoutineData] = useState({ title: "" });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -34,8 +36,9 @@ export default function AddRoutine() {
         { withCredentials: true }
       );
 
-      if (data?.status == 200) {
-        setRoutineData({ title: "" });
+      if (data?.status === 200) {
+        setRoutineData({ title: "" }); // Reset routine title
+        navigate(`/create-routine/${data.routine._id}`); // Redirect to the specific routine page
       }
     } catch (error) {
       console.error("Error adding routine:", error);

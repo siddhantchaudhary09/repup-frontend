@@ -1,10 +1,11 @@
-import { ClipboardList, Dumbbell } from "lucide-react";
+import { ClipboardList, Dumbbell, Plus } from "lucide-react";
 import { useSelector } from "react-redux";
 
 import { useNavigate } from "react-router";
 import AddExercise from "../components/AddExcercise.tsx";
 import AddRoutine from "../components/AddRoutine.tsx";
 import SkeletonLoader from "../components/Loader.tsx";
+import { Button } from "../components/ui/button.tsx";
 
 export default function Workout() {
   const navigate = useNavigate();
@@ -32,15 +33,22 @@ export default function Workout() {
               {routines?.length > 0 ? (
                 <ul className="space-y-2">
                   {routines?.map((routine: any) => (
-                    <li
-                      key={routine._id}
-                      className="bg-zinc-800 p-3 rounded-lg"
-                      onClick={() => {
-                        navigate(`/routine/${routine._id}`);
-                      }}
-                    >
-                      {routine.title}
-                    </li>
+                    <div>
+                      <li
+                        key={routine._id}
+                        className="bg-zinc-800 p-3 rounded-lg "
+                      >
+                        {routine.title}
+                      </li>
+                      <Button
+                        className=" bg-blue-500  w-full  "
+                        onClick={() => {
+                          navigate(`/routine/${routine._id}`);
+                        }}
+                      >
+                        Start Routine <Plus className="ml-2 h-4 w-4" />
+                      </Button>
+                    </div>
                   ))}
                 </ul>
               ) : (

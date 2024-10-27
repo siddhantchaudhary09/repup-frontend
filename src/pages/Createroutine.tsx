@@ -13,7 +13,7 @@ interface RoutineInfo {
   excercises: any[];
 }
 
-const Routine = () => {
+const Createroutine = () => {
   const [routineInfo, setRoutineInfo] = useState<RoutineInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -37,7 +37,6 @@ const Routine = () => {
     };
     fetchRoutineInfo();
   }, [routineId, dispatch]);
-  console.log(routineInfo);
 
   if (loading) {
     return <SkeletonLoader />;
@@ -59,4 +58,4 @@ const Routine = () => {
   );
 };
 
-export default Routine;
+export default Createroutine;
